@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ResetPasswordMail;
 use App\Karyawan;
 use App\Tiket;
 use App\Rating;
@@ -171,8 +174,12 @@ class AuthController extends Controller
             $jumlah_tiket= Tiket::where('id_teknisi', Auth::user()->username)->count();
             $onprogress = Tiket::where('id_teknisi', Auth::user()->username)->where('status',4)->count();
             $done_tiket = Tiket::where('id_teknisi', Auth::user()->username)->where('status',0)->count();
-        }else{
+        }else if(Auth::user()->role == 'admin'){
 
+            $jumlah_tiket   = Tiket::count();
+            $onprogress     = Tiket::where('status','=', 4)->count();
+            $done_tiket     = Tiket::where('status','=', 0)->count();
+        }else{
             $jumlah_tiket   = Tiket::where('reported','=', Auth::user()->username)
                                 ->count();
             $onprogress     = Tiket::where('reported','=', Auth::user()->username)
@@ -204,5 +211,62 @@ class AuthController extends Controller
         // $request->session()->flush();
         // Auth::logout();
         // return redirect('/');
+    }
+    // Lupa password
+    public function halamanreset()
+    {
+        return view('auth.reset-password');
+    }
+    public function createTokenAndSendEmail(Request $request)
+    {
+        $email = $request->email;
+        $token = Str::random(50);
+
+        $cek = User::where('email', $email)->first();
+        if(!$cek){
+            return back()->with('message', 'Email Tidak Terdaftar di Mactel!');
+        }
+        DB::table('password_resets')->insert([
+            'email' => $email,
+            'token' => $token,
+            'created_at' => now(),
+        ]);
+
+        $resetLink = url('/reset-password/' . $token); // Sesuaikan dengan URL reset password Anda
+
+        Mail::to($email)->send(new ResetPasswordMail($resetLink)); // Sesuaikan dengan kelas email Anda
+        return redirect()->route('login')->with('message','Untuk melanjutkan reset periksa Email '.$email.' !');
+    }
+    public function showResetForm($token)
+    {
+        return view('auth.reset-password2', ['token' => $token]);
+    }
+
+    public function reset(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|min:6',
+            'token' => 'required',
+        ]);
+
+        $resetRecord = DB::table('password_resets')
+            ->where('token', $request->token)
+            ->first();
+
+        if (!$resetRecord) {
+            return back()->with('message', 'Token reset password tidak valid.');
+        }
+
+        // Update password
+        DB::table('users')
+            ->where('email', $resetRecord->email)
+            ->update(['password' => Hash::make($request->password)]);
+
+        // Hapus token reset password
+        DB::table('password_resets')
+            ->where('email', $resetRecord->email)
+            ->delete();
+
+        return redirect()->route('login')->with('message', 'Password Anda telah direset.');
     }
 }

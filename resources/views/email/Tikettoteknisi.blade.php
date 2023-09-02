@@ -331,7 +331,7 @@
                                 style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;" />
                             <table width="100%" cellpadding="0" cellspacing="0"
                                 style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                <tr
+                                {{-- <tr
                                     style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                     <td class="content-block"
                                         style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
@@ -340,7 +340,7 @@
                                             <img src="https://hondamitrajaya.com/static/frontend/images/logo.png" alt="" height="55">
                                         </div>
                                     </td>
-                                </tr>
+                                </tr> --}}
                                 <tr
                                     style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                     <td class="content-block"
@@ -381,7 +381,7 @@
                                             </span>
                                             <p
                                             style="font-size: 13px; margin-bottom: 0px; margin-top: 3px; color: #878a99;">
-                                            Honda Mitra Jaya Group</p>
+                                            Mactel</p>
                                             </div>
                                         </div>
                                     </td>
@@ -407,8 +407,7 @@
                 </tr>
                 <tr>
                   <td class="content-block">
-                    © Honda Mitra Jaya Group<br>
-                    Grha MNC Securitas, Jl Fatmawati 160, Jakarta Selatan.
+                    © Mactel
                   </td>
                 </tr>
               </table>

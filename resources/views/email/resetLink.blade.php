@@ -341,22 +341,29 @@
                                         </div>
                                     </td>
                                 </tr> --}}
-                                <tr
+                                {{-- <tr
                                     style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                     <td class="content-block"
                                         style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 20px; line-height: 1.5; font-weight: 500; vertical-align: top; margin: 0; padding: 0 0 10px;"
                                         valign="top">
                                         Hai, {{ $details['user'] }}.
                                     </td>
-                                </tr>
+                                </tr> --}}
                                 <tr
                                     style="font-family: 'Roboto', sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                     <td class="content-block"
                                         style="font-family: 'Roboto', sans-serif; color: #878a99; box-sizing: border-box; line-height: 1.5; font-size: 15px; vertical-align: top; margin: 0; padding: 0 0 10px;"
                                         valign="top">
-                                        Mohon maaf, Tiket dengan id {{ $details['id_tiket'] }} telah ditolak,
-                                        dengan alasan "{{ $details['deskripsi'] }}".<br>
-                                        Untuk lebih jelasnya silahkah hubungi SPV IT.
+                                        Klik button dibawah ini atau kunjungi {{ $resetLink }} untuk melanjutkan reser password !
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-size:0px;padding:25px 25px;padding-bottom:40px;word-break:break-word;">
+                                        <a href="{{ $resetLink }}" target="_blank">
+
+                                            <button class="button button1">RESET PASSWORD</button>
+                                        </a>
+
                                     </td>
                                 </tr>
 

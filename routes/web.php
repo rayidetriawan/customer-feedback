@@ -31,6 +31,11 @@ Route::post('/daftar','AuthController@daftar')->name('daftar.add');
 Route::post('/','AuthController@login')->name('login');
 // Route::post('/','Auth\LoginController@login')->name('login');
 
+Route::get('/reset-password', 'AuthController@halamanreset')->name('reset.index');
+Route::post('/create-token-and-sendemail', 'AuthController@createTokenAndSendEmail')->name('reset');
+Route::get('/reset-password/{token}', 'AuthController@showResetForm')->name('password.reset');
+Route::post('/reset-password', 'AuthController@reset')->name('reset2');
+
 // // Route::group(['middleware' => 'CekloginMiddleware'], function (){
 Route::group(['middleware' => 'auth'], function (){
     Route::get('/dashboard', function () { 
@@ -43,8 +48,12 @@ Route::group(['middleware' => 'auth'], function (){
             $jumlah_tiket= Tiket::where('id_teknisi', Auth::user()->username)->count();
             $onprogress = Tiket::where('id_teknisi', Auth::user()->username)->where('status',4)->count();
             $done_tiket = Tiket::where('id_teknisi', Auth::user()->username)->where('status',0)->count();
-        }else{
+        }else if(Auth::user()->role == 'admin'){
 
+            $jumlah_tiket   = Tiket::count();
+            $onprogress     = Tiket::where('status','=', 4)->count();
+            $done_tiket     = Tiket::where('status','=', 0)->count();
+        }else{
             $jumlah_tiket   = Tiket::where('reported','=', Auth::user()->username)
                                 ->count();
             $onprogress     = Tiket::where('reported','=', Auth::user()->username)

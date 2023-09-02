@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Sign In | Customer Feedback</title>
+    <title>Reset Password | Customer Feedback</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -80,51 +80,32 @@
                             <div class="col-lg-5">
                                 <div class="p-lg-5 p-5">
                                     <div class="mb-5 mt-2">
-                                        <h4 class="text-primary fw-semibold">Login !</h4>
-                                        <p class="text-muted">Belum Punya Akses ? <a href="{{ route('daftar') }}">Daftar disini !</a></p>
+                                        <h4 class="text-primary fw-semibold">Reset Password</h4>
+                                        <p class="text-muted">Setel ulang password anda !</p>
                                     </div>
                                     
-                                    <div class="mt-5 mb-4">
-                                        <form action="{{ route('login') }}" method="POST">
+                                    <div class="mt-3 mb-3">
+                                        <form action="{{ route('reset2') }}" method="POST">
                                             @csrf
+                                                <div class="alert border-0 alert-warning text-center mb-4" role="alert">
+                                                    <font style="vertical-align: inherit;">
+                                                        <font style="vertical-align: inherit;">
+                                                        Masukkan password baru anda dan coba login kembali!
+                                                        </font>
+                                                    </font>
+                                                </div>
                                             <div class="mb-3">
-                                                <label for="username" class="form-label">Username / Email</label>
-                                                <input type="text" class="form-control" autocomplete="off" id="username"
-                                                    name="username" placeholder="Enter username">
-                                            </div>
-        
-                                            <div class="mb-6">
-                                                <div class="float-end">
-                                                    <a href="{{ route('reset.index') }}" class="text-muted">Lupa password?</a>
-                                                </div>
-                                                <label class="form-label" for="password-input">Password</label>
-                                                <div class="position-relative auth-pass-inputgroup mb-3">
-                                                    <input type="password" class="form-control pe-5 " autocomplete="off"
-                                                        name="password" placeholder="Enter password" id="password-input">
-                                                    <button
-                                                        class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted"
-                                                        type="button" id="password-addon"><i
-                                                            class="ri-eye-fill align-middle"></i></button>
-                                                </div>
-                                            </div>
-        
+                                                <input type="hidden" name="token" value="{{ $token }}">
+                                                <label for="password" class="form-label">Password Baru</label>
+                                                <input type="password" class="form-control" autocomplete="off" id="password"
+                                                    name="password" placeholder="Enter password" required>
+                                            </div>     
                                             
         
                                             <div class="mt-4">
                                                 <br>
-                                                <button class="btn btn-primary w-100" id="btnSubmit" type="submit">Sign In</button>
-                                                <div id="loading" style="display:none;">
-                                                    <button type="button" class="btn btn-primary w-100 btn-load" disabled>
-                                                        <span class="d-flex align-items-center">
-                                                            <span class="spinner-border flex-shrink-0" role="status">
-                                                                <span class="visually-hidden">Loading...</span>
-                                                            </span>
-                                                            <span class="flex-grow-1 ms-2">
-                                                                Loading...
-                                                            </span>
-                                                        </span>
-                                                    </button>
-                                                </div>
+                                                <button class="btn btn-primary w-100" type="submit">Simpan Perubahan</button>
+                                                
                                             </div>
         
                                         </form>
